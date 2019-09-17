@@ -18,7 +18,17 @@ class BurgerBuilder extends Component {
             bacon: 0,
             meat: 0
         },
+        readyToOrder: false,
         totalPrice: 50
+    }
+
+    checkReadyToOrder = (ingredients) => {
+        let sum = Object.values(ingredients)
+            .reduce( (sum, current) => {
+                return sum += current
+            }, 0)
+        
+        this.setState({ readyToOrder: sum > 0 })
     }
 
     addIngredientHandler = (type) => {
@@ -34,6 +44,8 @@ class BurgerBuilder extends Component {
             ingredients: updatedIngredients,
             totalPrice: newPrice
         })
+
+        this.checkReadyToOrder(updatedIngredients)
     }
 
     removeIngredientHandler = (type) => {
@@ -52,7 +64,8 @@ class BurgerBuilder extends Component {
             ingredients: updatedIngredients,
             totalPrice: newPrice
         })
-  
+
+        this.checkReadyToOrder(updatedIngredients)
     }
     render() {
         const disabledInfo = {
@@ -69,7 +82,8 @@ class BurgerBuilder extends Component {
                 <BuildControls addIngredient={this.addIngredientHandler}
                     removeIngredient={this.removeIngredientHandler}
                     disabled={disabledInfo}
-                    price={this.state.totalPrice} />
+                    price={this.state.totalPrice}
+                    readyToOrder={this.state.readyToOrder} />
             </React.Fragment>
         )
     }
