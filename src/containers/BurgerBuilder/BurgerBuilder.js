@@ -29,6 +29,10 @@ class BurgerBuilder extends Component {
         this.setState({ orderMode: true })
     }
 
+    orderContinueHandler = () => {
+        alert('You are continue!')
+    }
+
     cancelOrderMode = () => {
         this.setState({ orderMode: false })
     }
@@ -91,7 +95,10 @@ class BurgerBuilder extends Component {
             <React.Fragment>
                 <Modal show={this.state.orderMode}
                     cancelOrder={this.cancelOrderMode} >
-                    <OrderSummury ingredients={this.state.ingredients} />
+                    <OrderSummury 
+                        orderContinue={this.orderContinueHandler}
+                        orderCancel={this.cancelOrderMode}
+                        ingredients={this.state.ingredients} />
                 </Modal>
                 <Burger ingredients={this.state.ingredients} /> 
                 <BuildControls addIngredient={this.addIngredientHandler}

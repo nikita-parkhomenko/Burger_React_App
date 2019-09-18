@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Button from '../../UI/Button/Button'
+
 const OrderSummary = (props) => {
     const orderList = Object.entries(props.ingredients)
         .map( ingred => {
@@ -14,6 +16,10 @@ const OrderSummary = (props) => {
                 {orderList}
             </ul>
             <p>Continue to Checkout?</p>
+            <Button clicked={props.orderCancel}
+                btnType="Danger" > CANCEL </Button>
+            <Button clicked={props.orderContinue}
+                btnType="Success" > CONTINUE </Button>
         </React.Fragment>
     )
 }
