@@ -8,8 +8,10 @@
      return(
          <header className={classes.Toolbar}>
             <div>Menu</div>
-            <Logo />
-            <nav>
+            <div className={classes.Logo}>
+                <Logo />
+            </div>
+            <nav className={classes.DesktopOnly}>
                 <NavLinks />
             </nav>
          </header>
