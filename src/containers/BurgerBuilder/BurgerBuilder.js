@@ -29,6 +29,10 @@ class BurgerBuilder extends Component {
         this.setState({ orderMode: true })
     }
 
+    cancelOrderMode = () => {
+        this.setState({ orderMode: false })
+    }
+
     checkReadyToOrder = (ingredients) => {
         let sum = Object.values(ingredients)
             .reduce( (sum, current) => {
@@ -85,7 +89,8 @@ class BurgerBuilder extends Component {
 
         return(
             <React.Fragment>
-                <Modal show={this.state.orderMode} >
+                <Modal show={this.state.orderMode}
+                    cancelOrder={this.cancelOrderMode} >
                     <OrderSummury ingredients={this.state.ingredients} />
                 </Modal>
                 <Burger ingredients={this.state.ingredients} /> 
