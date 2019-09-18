@@ -20,8 +20,13 @@ class BurgerBuilder extends Component {
             bacon: 0,
             meat: 0
         },
+        totalPrice: 50,
         readyToOrder: false,
-        totalPrice: 50
+        orderMode: false
+    }
+
+    orderModeHandler = () => {
+        this.setState({ orderMode: true })
     }
 
     checkReadyToOrder = (ingredients) => {
@@ -80,7 +85,7 @@ class BurgerBuilder extends Component {
 
         return(
             <React.Fragment>
-                <Modal>
+                <Modal show={this.state.orderMode} >
                     <OrderSummury ingredients={this.state.ingredients} />
                 </Modal>
                 <Burger ingredients={this.state.ingredients} /> 
@@ -88,6 +93,7 @@ class BurgerBuilder extends Component {
                     removeIngredient={this.removeIngredientHandler}
                     disabled={disabledInfo}
                     price={this.state.totalPrice}
+                    orderMode={this.orderModeHandler}
                     readyToOrder={this.state.readyToOrder} />
             </React.Fragment>
         )
