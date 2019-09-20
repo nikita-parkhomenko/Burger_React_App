@@ -7,7 +7,7 @@
  const Toolbar = (props) => {
      return(
          <header className={classes.Toolbar}>
-            <div>Menu</div>
+            <div onClick={props.openSide} >Menu</div>
             <div className={classes.Logo}>
                 <Logo />
             </div>
