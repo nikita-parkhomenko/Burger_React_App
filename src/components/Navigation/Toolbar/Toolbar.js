@@ -3,11 +3,12 @@
  import classes from './Toolbar.css'
  import Logo from '../../Logo/Logo'
  import NavLinks from '../../Navigation/NavItems/NavItems'
+ import DrawerToggle from '../SideDrawer/DrowerToggle/DrawerToggle'
 
  const Toolbar = (props) => {
      return(
          <header className={classes.Toolbar}>
-            <div onClick={props.openSide} >Menu</div>
+            <DrawerToggle toggleSide={props.toggleSide} />
             <div className={classes.Logo}>
                 <Logo />
             </div>
