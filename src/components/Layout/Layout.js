@@ -21,7 +21,6 @@ class Layout extends Component {
     }
     
     render() {
-        console.log(this.state.showSideDrawer)
         return(
             <React.Fragment>
                 <Toolbar toggleSide={this.toggleSideDrawerHandler} />
