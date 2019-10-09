@@ -16,16 +16,18 @@ const INGREDIENTS_PRICE = {
 class BurgerBuilder extends Component {
 
     state = {
-        ingredients: {
-            salad: 0,
-            cheese: 0,
-            bacon: 0,
-            meat: 0
-        },
+        ingredients: null,
         totalPrice: 50,
         readyToOrder: false,
         orderMode: false,
         loading: false
+    }
+
+    componentDidMount() {
+        axios.get('https://react-burger-app-55968.firebaseio.com/ingredients.json')
+            .then( response => {
+                this.setState({ ingredients: response.data })
+            })
     }
 
     orderModeHandler = () => {
@@ -112,16 +114,34 @@ class BurgerBuilder extends Component {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
 
-        let orderSummary = (
-            <OrderSummury 
-            summury={this.state.totalPrice}
-            orderContinue={this.orderContinueHandler}
-            orderCancel={this.cancelOrderMode}
-            ingredients={this.state.ingredients} />
-        )
-        if (this.state.loading) {
-            orderSummary = <Spinner />
-        }
+        let orderSummary = null;
+
+        let burger = <Spinner />;
+        if (this.state.ingredients) {
+            burger = (
+                <React.Fragment>
+                    <Burger ingredients={this.state.ingredients} /> 
+                    <BuildControls addIngredient={this.addIngredientHandler}
+                        removeIngredient={this.removeIngredientHandler}
+                        disabled={disabledInfo}
+                        price={this.state.totalPrice}
+                        orderMode={this.orderModeHandler}
+                        readyToOrder={this.state.readyToOrder} />
+                </React.Fragment>
+            );
+            orderSummary = (
+                <OrderSummury 
+                 summury={this.state.totalPrice}
+                 orderContinue={this.orderContinueHandler}
+                 orderCancel={this.cancelOrderMode}
+                 ingredients={this.state.ingredients} />
+             )
+            }
+            
+            if (this.state.loading) {
+                orderSummary = <Spinner />
+            }
+
 
         return(
             <React.Fragment>
@@ -129,13 +149,7 @@ class BurgerBuilder extends Component {
                     cancelOrder={this.cancelOrderMode} >
                     {orderSummary}
                 </Modal>
-                <Burger ingredients={this.state.ingredients} /> 
-                <BuildControls addIngredient={this.addIngredientHandler}
-                    removeIngredient={this.removeIngredientHandler}
-                    disabled={disabledInfo}
-                    price={this.state.totalPrice}
-                    orderMode={this.orderModeHandler}
-                    readyToOrder={this.state.readyToOrder} />
+                {burger}
             </React.Fragment>
         )
     }
