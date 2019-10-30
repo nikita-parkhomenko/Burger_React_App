@@ -2,7 +2,7 @@
 
  import classes from './Toolbar.css'
  import Logo from '../../Logo/Logo'
- import NavLinks from '../../Navigation/NavItems/NavItems'
+ import NavItems from '../../Navigation/NavItems/NavItems'
  import DrawerToggle from '../SideDrawer/DrowerToggle/DrawerToggle'
 
  const Toolbar = (props) => {
@@ -13,7 +13,7 @@
                 <Logo />
             </div>
             <nav className={classes.DesktopOnly}>
-                <NavLinks />
+                <NavItems />
             </nav>
          </header>
      )
